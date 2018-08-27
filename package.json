@@ -1,0 +1,18 @@
+{
+  "name": "japcan",
+  "version": "0.0.1",
+  "description": "A japanese candlestick chart for technical analysis.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "japanese-candlestick",
+    "candlestick",
+    "vs1682",
+    "stocks",
+    "technical-analysis"
+  ],
+  "author": "vs1682",
+  "license": "MIT"
+}
