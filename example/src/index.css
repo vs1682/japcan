@@ -1,0 +1,20 @@
+.zoom {
+  width: 80px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 4px #efefef;
+  margin: 0 auto;
+}
+
+.zoom button {
+  width: 50%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+}
+
+.zoom button:nth-of-type(1) {
+  border-right: solid 1px #efefef;
+}

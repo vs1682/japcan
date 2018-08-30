@@ -1,3 +1,3 @@
-import Candle from "./components/candle";
+import Chart from "./chart";
 
-export default Candle;
+export default Chart;
