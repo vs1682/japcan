@@ -1,11 +1,12 @@
 {
   "name": "japcan",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A japanese candlestick chart for technical analysis.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "build": "babel src -d dist --copy-files"
   },
   "husky": {
     "hooks": {
@@ -28,6 +29,7 @@
   "author": "vs1682",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
@@ -51,5 +53,13 @@
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.6"
+  },
+  "peerDependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "prop-types": "^15.6.0",
+    "d3-axis": "^1.0.12",
+    "d3-scale": "^2.1.2",
+    "d3-selection": "^1.3.2"
   }
 }

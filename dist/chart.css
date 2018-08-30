@@ -1,0 +1,7 @@
+.grid-lines line {
+  stroke: #efefef;
+}
+
+.grid-lines path {
+  stroke-width: 0;
+}
