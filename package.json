@@ -29,6 +29,10 @@
   ],
   "author": "vs1682",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/vs1682/japcan.git",
+    "type": "git"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
