@@ -4,4 +4,7 @@ src
 example
 .babelrc
 .gitignore
+.eslintrc.js
+.prettierrc.js
+.vscode
 webpack.config.js

@@ -4,6 +4,19 @@ This is a [react](https://github.com/facebook/react/) and [d3](https://github.co
 
 This is a basic component with just candlestick chart. More features will be added over the time.
 
+It has following `peerDependencies`
+
+```js
+"peerDependencies": {
+  "react": "^16.4.0",
+  "react-dom": "^16.4.0",
+  "prop-types": "^15.6.0",
+  "d3-axis": "^1.0.12",
+  "d3-scale": "^2.1.2",
+  "d3-selection": "^1.3.2"
+}
+```
+
 # Installation
 
 `npm install japcan`
@@ -73,6 +86,8 @@ Each element of `pricesData` is an array of strings of `6 elements` in the follo
 [x] Create a basic candlestick chart
 
 [ ] Add theme
+
+[ ] Add animations
 
 [ ] Add indicators
 
