@@ -17,6 +17,8 @@ It has following `peerDependencies`
 }
 ```
 
+Demo: https://vs1682.github.io/japcan/
+
 # Installation
 
 `npm install japcan`

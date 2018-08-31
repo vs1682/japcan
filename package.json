@@ -6,8 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
-    "build": "babel src -d dist --copy-files",
-    "prepublishOnly": "npm run build"
+    "transpile": "babel src -d dist --copy-files",
+    "prepublishOnly": "npm run transpile",
+    "build": "webpack --mode production",
+    "deploy": "gh-pages -d example/dist",
+    "publish-demo": "npm run build && npm run deploy"
   },
   "husky": {
     "hooks": {
@@ -47,6 +50,7 @@
     "d3-selection": "^1.3.2",
     "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",
+    "gh-pages": "^1.2.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.0.0-rc.13",
     "lint-staged": "^7.2.2",
@@ -60,11 +64,11 @@
     "webpack-dev-server": "^3.1.6"
   },
   "peerDependencies": {
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "prop-types": "^15.6.0",
     "d3-axis": "^1.0.12",
     "d3-scale": "^2.1.2",
-    "d3-selection": "^1.3.2"
+    "d3-selection": "^1.3.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
   }
 }
