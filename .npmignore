@@ -2,6 +2,7 @@
 
 src
 example
+blob
 .babelrc
 .gitignore
 .eslintrc.js

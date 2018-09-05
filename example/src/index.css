@@ -1,3 +1,9 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
 .zoom {
   width: 80px;
   height: 32px;
@@ -17,4 +23,40 @@
 
 .zoom button:nth-of-type(1) {
   border-right: solid 1px #efefef;
+}
+
+.theme {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.theme__selector {
+  display: flex;
+  margin: 0 32px;
+}
+
+.theme__color-selector {
+  width: 12px;
+  height: 12px;
+  border: none;
+  align-self: center;
+  margin-left: 4px;
+  box-shadow: 4px 4px 4px #efefef;
+}
+
+.color-picker {
+  position: absolute;
+}
+
+.color-picker__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.chart {
+  margin: 0 auto;
 }

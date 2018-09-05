@@ -57,6 +57,7 @@
     "prettier": "1.14.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-color": "^2.14.1",
     "react-dom": "^16.4.2",
     "style-loader": "^0.22.1",
     "webpack": "^4.17.1",

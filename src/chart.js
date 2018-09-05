@@ -5,7 +5,12 @@ import { axisBottom, axisLeft } from "d3-axis";
 import { arrayOf, number, shape, string } from "prop-types";
 
 import Candle from "./components/candle";
-import { candleMarginFactor, candleMarginMax, chartMargins } from "./constants";
+import {
+  candleMarginFactor,
+  candleMarginMax,
+  chartMargins,
+  defaultTheme
+} from "./constants";
 import "./chart.css";
 
 const minAndMaxPrices = pricesData =>
@@ -138,18 +143,6 @@ const tickValues = dates => {
   }
 };
 
-const getColor = openCloseDifference => {
-  if (openCloseDifference < 0) {
-    return "red";
-  }
-
-  if (openCloseDifference > 0) {
-    return "green";
-  }
-
-  return "black";
-};
-
 class Chart extends Component {
   xAxisRef = createRef();
   xGridLinesRef = createRef();
@@ -168,6 +161,23 @@ class Chart extends Component {
   componentDidUpdate() {
     this.props.pricesData && this.renderAxes();
   }
+
+  addMissingPartsOfTheme = () => ({
+    ...defaultTheme,
+    ...this.props.theme
+  });
+
+  getColor = openCloseDifference => {
+    const allPartsOfTheme = this.addMissingPartsOfTheme();
+
+    if (openCloseDifference < 0) {
+      return allPartsOfTheme.profit;
+    }
+
+    if (openCloseDifference > 0) {
+      return allPartsOfTheme.loss;
+    }
+  };
 
   setDomainForAxes = () => {
     const dates = getDatesInAscendingOrder(this.props.pricesData);
@@ -214,6 +224,7 @@ class Chart extends Component {
     const candleMargin =
       candleMarginMax / parseInt(pricesData.length / candleMarginFactor);
     const candleWidth = candleBandWidth - candleMargin;
+    const allPartsOfTheme = this.addMissingPartsOfTheme();
 
     return pricesData.map(data => {
       const open = parseFloat(data[1]);
@@ -241,7 +252,8 @@ class Chart extends Component {
             width={candleWidth}
             highHeight={candleHigh}
             lowHeight={candleLow}
-            color={getColor(candleHeight)}
+            color={this.getColor(candleHeight)}
+            stickColor={allPartsOfTheme.stick}
           />
         </g>
       );
@@ -251,6 +263,7 @@ class Chart extends Component {
   render() {
     const { margins, width, height, pricesData } = this.props;
     const { top, left, right, bottom } = margins;
+    const allPartsOfTheme = this.addMissingPartsOfTheme();
 
     if (pricesData.length) {
       // We need to change the domain when the pricesData changes
@@ -260,15 +273,32 @@ class Chart extends Component {
           width={width + left + right || 0}
           height={height + top + bottom || 0}
         >
+          <rect width="100%" height="100%" fill={allPartsOfTheme.background} />
           <g transform={`translate(${left}, ${top})`}>
-            <g ref={this.xAxisRef} transform={`translate(0, ${height})`} />
+            <g
+              className="axis"
+              ref={this.xAxisRef}
+              transform={`translate(0, ${height})`}
+              // We are using color property here as d3 uses "currentColor" CSS variable
+              // internally to render axis
+              style={{ color: allPartsOfTheme.domain }}
+            />
             <g
               className="grid-lines"
               ref={this.xGridLinesRef}
               transform={`translate(0, ${height})`}
+              style={{ color: allPartsOfTheme.gridLines }}
             />
-            <g ref={this.yAxisRef} />
-            <g className="grid-lines" ref={this.yGridLinesRef} />
+            <g
+              className="axis"
+              ref={this.yAxisRef}
+              style={{ color: allPartsOfTheme.domain }}
+            />
+            <g
+              className="grid-lines"
+              ref={this.yGridLinesRef}
+              style={{ color: allPartsOfTheme.gridLines }}
+            />
             {this.renderCandles()}
           </g>
         </svg>
@@ -292,11 +322,20 @@ Chart.propTypes = {
     left: number,
     right: number,
     bottom: number
+  }),
+  theme: shape({
+    background: string,
+    domain: string,
+    gridLines: string,
+    loss: string,
+    profit: string,
+    stick: string
   })
 };
 
 Chart.defaultProps = {
-  margins: chartMargins
+  margins: chartMargins,
+  theme: defaultTheme
 };
 
 export default Chart;
