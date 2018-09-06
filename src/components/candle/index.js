@@ -1,13 +1,21 @@
 import React, { Fragment } from "react";
 import { candleDimensions } from "../../constants";
 
-const Candle = ({ height, width, highHeight, lowHeight, color }) => {
+const Candle = ({
+  height,
+  width,
+  highHeight,
+  lowHeight,
+  color,
+  stickColor
+}) => {
   return (
     <Fragment>
       <rect
         x={width / 2}
-        width={candleDimensions.highWidth}
+        width={candleDimensions.stickWidth}
         height={highHeight}
+        style={{ fill: stickColor }}
       />
       <rect
         y={highHeight}
@@ -18,8 +26,9 @@ const Candle = ({ height, width, highHeight, lowHeight, color }) => {
       <rect
         x={width / 2}
         y={parseInt(height) + parseInt(highHeight)}
-        width={candleDimensions.highWidth}
+        width={candleDimensions.stickWidth}
         height={lowHeight}
+        style={{ fill: stickColor }}
       />
     </Fragment>
   );

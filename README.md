@@ -21,9 +21,13 @@ Demo: https://vs1682.github.io/japcan/
 
 # Installation
 
-`npm install japcan`
+```js
+npm install japcan
+```
 
-`yarn add japcan`
+```js
+yarn add japcan
+```
 
 # Usage
 
@@ -83,11 +87,32 @@ margins = {
 
 Each element of `pricesData` is an array of strings of `6 elements` in the following order `[date, open, high, low, close, volume]`. Though `volume` is not currently used anywhere in the code but in coming updates it will be there.
 
+### theme
+
+> `object` | optional
+
+```js
+theme = {
+  background: string,
+  domain: string,
+  gridLines: string,
+  loss: string,
+  profit: string,
+  stick: string
+};
+```
+
+# Screenshots
+
+![alt screenshot-theme-1](blob/chart-theme-1.png)
+![alt screenshot-theme-3](blob/chart-theme-2.png)
+![alt screenshot-theme-3](blob/chart-theme-3.png)
+
 # Roadmap
 
 [x] Create a basic candlestick chart
 
-[ ] Add theme
+[x] Add theme
 
 [ ] Add animations
 
