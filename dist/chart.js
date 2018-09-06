@@ -232,18 +232,6 @@ var tickValues = function tickValues(dates) {
   }
 };
 
-var getColor = function getColor(openCloseDifference) {
-  if (openCloseDifference < 0) {
-    return "red";
-  }
-
-  if (openCloseDifference > 0) {
-    return "green";
-  }
-
-  return "black";
-};
-
 var Chart = (function(_Component) {
   _inherits(Chart, _Component);
 
@@ -280,6 +268,20 @@ var Chart = (function(_Component) {
         _this.props.height,
         0
       ])),
+      (_this.addMissingPartsOfTheme = function() {
+        return _extends({}, _constants.defaultTheme, _this.props.theme);
+      }),
+      (_this.getColor = function(openCloseDifference) {
+        var allPartsOfTheme = _this.addMissingPartsOfTheme();
+
+        if (openCloseDifference < 0) {
+          return allPartsOfTheme.profit;
+        }
+
+        if (openCloseDifference > 0) {
+          return allPartsOfTheme.loss;
+        }
+      }),
       (_this.setDomainForAxes = function() {
         var dates = getDatesInAscendingOrder(_this.props.pricesData);
         var pricesRange = minAndMaxPrices(_this.props.pricesData);
@@ -329,6 +331,7 @@ var Chart = (function(_Component) {
           _constants.candleMarginMax /
           parseInt(pricesData.length / _constants.candleMarginFactor);
         var candleWidth = candleBandWidth - candleMargin;
+        var allPartsOfTheme = _this.addMissingPartsOfTheme();
 
         return pricesData.map(function(data) {
           var open = parseFloat(data[1]);
@@ -357,7 +360,8 @@ var Chart = (function(_Component) {
               width: candleWidth,
               highHeight: candleHigh,
               lowHeight: candleLow,
-              color: getColor(candleHeight)
+              color: _this.getColor(candleHeight),
+              stickColor: allPartsOfTheme.stick
             })
           );
         });
@@ -396,6 +400,8 @@ var Chart = (function(_Component) {
           right = margins.right,
           bottom = margins.bottom;
 
+        var allPartsOfTheme = this.addMissingPartsOfTheme();
+
         if (pricesData.length) {
           // We need to change the domain when the pricesData changes
           this.setDomainForAxes();
@@ -405,22 +411,37 @@ var Chart = (function(_Component) {
               width: width + left + right || 0,
               height: height + top + bottom || 0
             },
+            _react2.default.createElement("rect", {
+              width: "100%",
+              height: "100%",
+              fill: allPartsOfTheme.background
+            }),
             _react2.default.createElement(
               "g",
               { transform: "translate(" + left + ", " + top + ")" },
               _react2.default.createElement("g", {
+                className: "axis",
                 ref: this.xAxisRef,
-                transform: "translate(0, " + height + ")"
+                transform: "translate(0, " + height + ")",
+                // We are using color property here as d3 uses "currentColor" CSS variable
+                // internally to render axis
+                style: { color: allPartsOfTheme.domain }
               }),
               _react2.default.createElement("g", {
                 className: "grid-lines",
                 ref: this.xGridLinesRef,
-                transform: "translate(0, " + height + ")"
+                transform: "translate(0, " + height + ")",
+                style: { color: allPartsOfTheme.gridLines }
               }),
-              _react2.default.createElement("g", { ref: this.yAxisRef }),
+              _react2.default.createElement("g", {
+                className: "axis",
+                ref: this.yAxisRef,
+                style: { color: allPartsOfTheme.domain }
+              }),
               _react2.default.createElement("g", {
                 className: "grid-lines",
-                ref: this.yGridLinesRef
+                ref: this.yGridLinesRef,
+                style: { color: allPartsOfTheme.gridLines }
               }),
               this.renderCandles()
             )
@@ -450,11 +471,20 @@ Chart.propTypes = {
     left: _propTypes.number,
     right: _propTypes.number,
     bottom: _propTypes.number
+  }),
+  theme: (0, _propTypes.shape)({
+    background: _propTypes.string,
+    domain: _propTypes.string,
+    gridLines: _propTypes.string,
+    loss: _propTypes.string,
+    profit: _propTypes.string,
+    stick: _propTypes.string
   })
 };
 
 Chart.defaultProps = {
-  margins: _constants.chartMargins
+  margins: _constants.chartMargins,
+  theme: _constants.defaultTheme
 };
 
 exports.default = Chart;

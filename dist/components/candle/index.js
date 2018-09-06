@@ -19,15 +19,17 @@ var Candle = function Candle(_ref) {
     width = _ref.width,
     highHeight = _ref.highHeight,
     lowHeight = _ref.lowHeight,
-    color = _ref.color;
+    color = _ref.color,
+    stickColor = _ref.stickColor;
 
   return _react2.default.createElement(
     _react.Fragment,
     null,
     _react2.default.createElement("rect", {
       x: width / 2,
-      width: _constants.candleDimensions.highWidth,
-      height: highHeight
+      width: _constants.candleDimensions.stickWidth,
+      height: highHeight,
+      style: { fill: stickColor }
     }),
     _react2.default.createElement("rect", {
       y: highHeight,
@@ -38,8 +40,9 @@ var Candle = function Candle(_ref) {
     _react2.default.createElement("rect", {
       x: width / 2,
       y: parseInt(height) + parseInt(highHeight),
-      width: _constants.candleDimensions.highWidth,
-      height: lowHeight
+      width: _constants.candleDimensions.stickWidth,
+      height: lowHeight,
+      style: { fill: stickColor }
     })
   );
 };

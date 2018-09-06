@@ -1,7 +1,12 @@
-.grid-lines line {
-  stroke: #efefef;
-}
-
 .grid-lines path {
   stroke-width: 0;
+}
+
+.grid-lines .tick line {
+  fill: transparent;
+  stroke-width: 0.1;
+}
+
+.axis .tick text {
+  stroke-width: 0.1;
 }
